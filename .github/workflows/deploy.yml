@@ -1,0 +1,46 @@
+name: Deploy Laravel
+
+on:
+  push:
+    branches:
+      - main  # 任意のブランチに変更可能
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4' # 環境に合わせて変更
+
+      - name: Install Dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      # 1. ファイルの転送 (rsync)
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          TARGET: "/home/users/0/main.jp-web-server/web/rising/backend" # サーバー上のパス
+          EXCLUDE: "/node_modules/, /vendor/, /storage/, .env"
+
+      # 2. リモートサーバーでコマンド実行 (Migration)
+      - name: Execute Remote Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /var/www/html/your-project/
+            php artisan migrate --force
