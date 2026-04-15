@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - main  # 任意のブランチに変更可能
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' # Node.js 24.x を使用するための環境変数
+    workflow_dispatch: # これを追加！内容（インデント等）は空でOK
 
 jobs:
   deploy:
@@ -18,6 +17,12 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4' # 環境に合わせて変更
+    # Node.jsのセットアップ（Viteやnpm run build用）
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '24'
+
 
       - name: Install Dependencies
         run: composer install --no-dev --optimize-autoloader
