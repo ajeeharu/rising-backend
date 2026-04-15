@@ -48,4 +48,4 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd /home/users/0/main.jp-web-server/web/rising/backend/
-            php artisan migrate --force
+            /usr/local/php/8.4/bin/php artisan migrate --force
