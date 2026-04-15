@@ -47,5 +47,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /var/www/html/your-project/
+            cd /home/users/0/main.jp-web-server/web/rising/backend/
             php artisan migrate --force
