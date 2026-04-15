@@ -8,7 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' # Node.js 24.x を使用するための環境変数
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
