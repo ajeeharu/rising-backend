@@ -51,11 +51,11 @@ jobs:
 
             # 1. サーバー側でライブラリをインストール（phpのパスに注意）
             # ロリポップには composer コマンドが標準で用意されています
-            php composer install --no-dev --optimize-autoloader
+            /usr/local/php/8.4/bin/composer install --no-dev --optimize-autoloader
 
             # 2. マイグレーションの実行
-            php artisan migrate --force
+            /usr/local/php/8.4/bin/php artisan migrate --force
 
             # 3. キャッシュのクリア（反映を確実にするため）
-            php artisan config:cache
+            /usr/local/php/8.4/bin/php artisan config:cache
             php artisan route:cache
