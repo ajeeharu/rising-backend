@@ -48,6 +48,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd /home/users/0/main.jp-web-server/web/rising/backend
+            mkdir -p storage/framework/views storage/framework/cache storage/framework/sessions
+            chmod -R 777 storage bootstrap/cache
 
             # 1. サーバー側でライブラリをインストール（phpのパスに注意）
             # ロリポップには composer コマンドが標準で用意されています
