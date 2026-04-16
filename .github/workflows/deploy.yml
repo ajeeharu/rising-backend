@@ -51,7 +51,7 @@ jobs:
 
             # 1. サーバー側でライブラリをインストール（phpのパスに注意）
             # ロリポップには composer コマンドが標準で用意されています
-            composer install --no-dev --optimize-autoloader
+            php composer install --no-dev --optimize-autoloader
 
             # 2. マイグレーションの実行
             php artisan migrate --force
