@@ -1,24 +1,18 @@
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
-       Options -MultiViews -Indexes
+        Options -MultiViews -Indexes
     </IfModule>
+
+    # index.php をデフォルトのファイルとして認識させる
+    DirectoryIndex index.php
 
     RewriteEngine On
 
-    # Handle Authorization Header
+    # Authorization ヘッダーを有効にする（API等で必要）
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Handle X-XSRF-Token Header
-    RewriteCond %{HTTP:x-xsrf-token} .
-    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
+    # ディレクトリやファイルが存在しない場合は index.php に飛ばす
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
