@@ -26,7 +26,7 @@ class UserController extends Controller
             'sub'               => 'required|string', // CognitoのID
             'name'              => 'required|string|max:255',
             'email'             => 'required|email',
-            'avatar_url'        => 'nullable|url',
+            'avatar_url'        => 'nullable|string',
             'self_introduction' => 'nullable|string',
         ]);
 
