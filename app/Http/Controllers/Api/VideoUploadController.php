@@ -29,7 +29,7 @@ class VideoUploadController extends Controller
         );
 
         return response()->json([
-            'url' => $url,
+            's3_presigned' => $url,
             'path' => $path, // 後で DB に保存するためにパスも返しておくと便利
         ]);
     }
