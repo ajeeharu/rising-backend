@@ -64,8 +64,8 @@ class UserController extends Controller
             'id'               => $user->id,
             'name'             => $user->name,
             'email'            => $user->email,
-            'avatarUrl'        => $user->avatar_url, // 変換
-            'SelfIntroduction' => $user->self_introduction, // 変換
+            'avatar_url'       => $user->avatar_url, // 変換
+            'self_introduction' => $user->self_introduction, // 変換
         ]);
     }
     /**
